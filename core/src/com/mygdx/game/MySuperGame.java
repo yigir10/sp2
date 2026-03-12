@@ -10,7 +10,19 @@ public class MySuperGame {
         screen.create();
         while (true) {
             screen.render();
-            Threard.sleep(20);
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+    }
+
+    public static void main(String[] args) {
+        MySuperGame game = new MySuperGame();
+        MyScreen s = new MyScreen();
+
+        game.setScreen(s);
+        game.renderScreen();
     }
 }
