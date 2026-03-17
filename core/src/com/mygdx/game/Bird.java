@@ -13,6 +13,7 @@ public class Bird {
     int frameCounter = 0;
     Texture[] framesArray;
 
+
     Bird(int x, int y, Texture texture, int speed) {
         frameCounter = 0;
         this.x = x;
@@ -20,10 +21,10 @@ public class Bird {
         this.texture = texture;
         this.speed = speed;
         framesArray = new Texture[]{
-                new Texture("birdTiles/bird0.png"),
-                new Texture("birdTiles/bird1.png"),
-                new Texture("birdTiles/bird2.png"),
-                new Texture("birdTiles/bird1.png"),
+                new Texture("bird0.png"),
+                new Texture("bird1.png"),
+                new Texture("bird2.png"),
+                new Texture("bird1.png"),
         };
     }
 
@@ -53,10 +54,8 @@ public class Bird {
 
     public void draw(Batch batch) {
         int frameMultiplier = 10;
-        batch.draw(framesArray[frameCounter / frameMultiplier], x, y);
-        if (frameCounter++ == framesArray.length * frameMultiplier - 1) {
-            frameCounter = 0;
-        }
+        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, weight, height);
+        if (frameCounter++ == framesArray.length * frameMultiplier - 1) frameCounter = 0;
     }
 
     public void dispose() {
