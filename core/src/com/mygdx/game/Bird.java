@@ -5,57 +5,49 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Bird {
     int x, y;
-    int speed;
-    Texture texture;
-    int jumpHeight;
-    final int MAX_HEIGHT_OF_JUMP = 200;
-    boolean jump;
+    float vY = 0;      // Текущая вертикальная скорость
+    float gravity = -0.5f;    // Сила гравитации (тянет вниз)
+    int jumpHeight = 10;    // Сила прыжка (импульс вверх)
+
     int frameCounter = 0;
     Texture[] framesArray;
-
+    int width = 100;
+    int height = 100;
 
     Bird(int x, int y, Texture texture, int speed) {
-        frameCounter = 0;
         this.x = x;
         this.y = y;
-        this.texture = texture;
-        this.speed = speed;
         framesArray = new Texture[]{
-                new Texture("bird0.png"),
-                new Texture("bird1.png"),
-                new Texture("bird2.png"),
-                new Texture("bird1.png"),
+                new Texture("birdTiles/bird0.png"),
+                new Texture("birdTiles/bird1.png"),
+                new Texture("birdTiles/bird2.png"),
+                new Texture("birdTiles/bird1.png"),
         };
     }
 
-    public void setTexture(Texture texture){
-        this.texture = texture;
-    }
-    public Texture getTexture() {
-        return texture;
-    }
-
     public void onClick() {
-        jump = true;
-        jumpHeight = MAX_HEIGHT_OF_JUMP + y;
+        if (vY < 0) {
+            vY = jumpHeight;
+        } else {
+            vY += jumpHeight;
+        }
     }
 
     public void fly() {
-        if (y >= jumpHeight) {
-            jump = false;
+        vY += gravity;  // Гравитация постоянно уменьшает скорость
+        y += vY;  // Изменяем координату Y на значение скорости
+
+        if (y < 0) {
+           y = 0;
         }
-        if (jump) {
-            y += speed;
-        } else {
-            y -= speed;
-        }
-        x += speed;
     }
 
     public void draw(Batch batch) {
         int frameMultiplier = 10;
-        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, weight, height);
-        if (frameCounter++ == framesArray.length * frameMultiplier - 1) frameCounter = 0;
+        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, width, height);
+        if (frameCounter++ >= framesArray.length * frameMultiplier - 1) {
+            frameCounter = 0;
+        }
     }
 
     public void dispose() {

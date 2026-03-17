@@ -12,7 +12,8 @@ public class ScreenGame implements Screen {
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        birdTexture = new Texture("bird0.png");
+        birdTexture = new Texture("birdTiles/bird0.png");
+        bird = new Bird(100, 300, birdTexture, 5);
     }
 
     @Override
@@ -58,5 +59,6 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
+        birdTexture.dispose();
     }
 }
