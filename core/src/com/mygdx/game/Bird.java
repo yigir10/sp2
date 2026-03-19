@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Bird {
     int x, y;
-    float vY = 0;      // Текущая вертикальная скорость
-    float gravity = -0.5f;    // Сила гравитации (тянет вниз)
-    int jumpHeight = 10;    // Сила прыжка (импульс вверх)
+    float vY = 0;
+    float gravity = -0.7f;
+    int jumpHeight = 10;
 
     int frameCounter = 0;
     Texture[] framesArray;
-    int width = 100;
-    int height = 100;
+    int WIDTH = 250;
+    int HEIGHT = 200;
 
     Bird(int x, int y, Texture texture, int speed) {
         this.x = x;
@@ -34,8 +34,8 @@ public class Bird {
     }
 
     public void fly() {
-        vY += gravity;  // Гравитация постоянно уменьшает скорость
-        y += vY;  // Изменяем координату Y на значение скорости
+        vY += gravity;
+        y += vY;
 
         if (y < 0) {
            y = 0;
@@ -44,7 +44,7 @@ public class Bird {
 
     public void draw(Batch batch) {
         int frameMultiplier = 10;
-        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, width, height);
+        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, WIDTH, HEIGHT);
         if (frameCounter++ >= framesArray.length * frameMultiplier - 1) {
             frameCounter = 0;
         }

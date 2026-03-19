@@ -9,15 +9,24 @@ public class ScreenGame implements Screen {
     MyGdxGame myGdxGame;
     Texture birdTexture;
     Bird bird;
+    int tubeCount = 3;
+    Tube[] tubes;
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         birdTexture = new Texture("birdTiles/bird0.png");
         bird = new Bird(100, 300, birdTexture, 5);
+        initTubes();
     }
 
     @Override
     public void show() {
+    }
+    public void initTubes() {
+        tubes = new Tube[tubeCount];
+        for (int i = 0; i < tubeCount; i++) {
+            tubes[i] = new Tube(tubeCount, i);
+        }
     }
 
     @Override
@@ -27,12 +36,17 @@ public class ScreenGame implements Screen {
         }
 
         bird.fly();
+        for (Tube next: tubes){
+            next.move();
+        }
 
         ScreenUtils.clear(1, 0, 0, 1);
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
         bird.draw(myGdxGame.batch);
+        for (Tube tube : tubes) tube.move();
+        for (Tube tube : tubes) tube.draw(myGdxGame.batch);
         myGdxGame.batch.end();
     }
 
