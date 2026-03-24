@@ -12,15 +12,15 @@ public class Tube {
     int width = 200;
     int height = 500;
     int gapY;
-    int gapHeight = 300;
+    int gapHeight = 350;
     Random random = new Random();
-    int padding = 100;
+    int padding = 50;
     int x;
     int distanceBetweenTubes;
-    int speed = 5;
+    int speed = 4;
+    static boolean isPointReceived;
 
     public Tube(int tubeCount, int tubeIdx) {
-
         gapY = gapHeight / 2 + padding + random.nextInt(MyGdxGame.SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         distanceBetweenTubes = (MyGdxGame.SCR_WIDTH + width) / (tubeCount - 1);
         x = distanceBetweenTubes * tubeIdx + MyGdxGame.SCR_WIDTH;
@@ -31,9 +31,20 @@ public class Tube {
     void move() {
         x -= speed;
         if (x < -width) {
+            isPointReceived = false;
             x = MyGdxGame.SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(MyGdxGame.SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
+    }
+    public boolean isHit(Bird bird) {
+        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
+            return true;
+        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x + width)
+            return true;
+        return false;
+    }
+    public boolean needAddPoint(Bird bird) {
+        return bird.x > x + width && !isPointReceived;
     }
 
     void draw(Batch batch) {

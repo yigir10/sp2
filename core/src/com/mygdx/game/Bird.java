@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class Bird {
     int x, y;
     float vY = 0;
-    float gravity = -0.7f;
-    int jumpHeight = 10;
+    float downSpeed = -0.15f;
+    int jumpHeight = 5;
 
     int frameCounter = 0;
     Texture[] framesArray;
-    int WIDTH = 250;
-    int HEIGHT = 200;
+    int width = 250;
+    int height = 200;
 
     Bird(int x, int y, Texture texture, int speed) {
         this.x = x;
@@ -32,19 +32,20 @@ public class Bird {
             vY += jumpHeight;
         }
     }
+    public boolean isInField() {
+        if (y + height < 0) return false;
+        if (y > MyGdxGame.SCR_HEIGHT) return false;
+        return true;
+    }
 
     public void fly() {
-        vY += gravity;
+        vY += downSpeed;
         y += vY;
-
-        if (y < 0) {
-           y = 0;
-        }
     }
 
     public void draw(Batch batch) {
         int frameMultiplier = 10;
-        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, WIDTH, HEIGHT);
+        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, width, height);
         if (frameCounter++ >= framesArray.length * frameMultiplier - 1) {
             frameCounter = 0;
         }
