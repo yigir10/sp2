@@ -1,8 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.characters;
 
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class Tube {
     int x;
     int distanceBetweenTubes;
     int speed = 4;
-    static boolean isPointReceived;
+    public boolean isPointReceived;
 
     public Tube(int tubeCount, int tubeIdx) {
         gapY = gapHeight / 2 + padding + random.nextInt(MyGdxGame.SCR_HEIGHT - 2 * (padding + gapHeight / 2));
@@ -28,7 +29,7 @@ public class Tube {
         textureUpperTube = new Texture("tubes/tube_flipped.png");
         textureDownTube = new Texture("tubes/tube.png");
     }
-    void move() {
+    public void move() {
         x -= speed;
         if (x < -width) {
             isPointReceived = false;
@@ -47,7 +48,7 @@ public class Tube {
         return bird.x > x + width && !isPointReceived;
     }
 
-    void draw(Batch batch) {
+    public void draw(Batch batch) {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
     }

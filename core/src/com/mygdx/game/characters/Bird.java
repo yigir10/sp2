@@ -1,7 +1,8 @@
-package com.mygdx.game;
+package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.MyGdxGame;
 
 public class Bird {
     int x, y;
@@ -14,7 +15,7 @@ public class Bird {
     int width = 250;
     int height = 200;
 
-    Bird(int x, int y, Texture texture, int speed) {
+    public Bird(int x, int y, Texture texture) {
         this.x = x;
         this.y = y;
         framesArray = new Texture[]{

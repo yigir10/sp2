@@ -1,14 +1,20 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.characters.Bird;
+import com.mygdx.game.characters.Tube;
+import com.mygdx.game.components.MovingBackground;
+import com.mygdx.game.components.PointCounter;
 
 public class ScreenGame implements Screen {
     MyGdxGame myGdxGame;
     Texture birdTexture;
     Bird bird;
+    MovingBackground background;
     int tubeCount = 3;
     Tube[] tubes;
     boolean isGameOver;
@@ -18,10 +24,11 @@ public class ScreenGame implements Screen {
     final int pointCounterMarginRight = 200;
 
 
-    ScreenGame(MyGdxGame myGdxGame) {
+    public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
+        background = new MovingBackground();
         birdTexture = new Texture("birdTiles/bird0.png");
-        bird = new Bird(100, 300, birdTexture, 5);
+        bird = new Bird(200, 350, birdTexture);
         initTubes();
     }
 
@@ -57,9 +64,8 @@ public class ScreenGame implements Screen {
                 System.out.println("hit");
                 isGameOver = true;
             } else if (next.needAddPoint(bird)) {
-                Tube.isPointReceived = true;
+                next.isPointReceived = true;
                 gamePoints += 1;
-                System.out.println(gamePoints);
             }
         }
 
@@ -67,6 +73,8 @@ public class ScreenGame implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
+        background.draw(myGdxGame.batch);
+        background.move();
         bird.draw(myGdxGame.batch);
         for (Tube tube : tubes) tube.move();
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
@@ -98,5 +106,7 @@ public class ScreenGame implements Screen {
     public void dispose() {
         bird.dispose();
         birdTexture.dispose();
+        background.dispose();
+
     }
 }
