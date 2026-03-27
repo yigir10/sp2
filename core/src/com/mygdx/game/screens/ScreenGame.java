@@ -17,16 +17,16 @@ public class ScreenGame implements Screen {
     MovingBackground background;
     int tubeCount = 3;
     Tube[] tubes;
-    boolean isGameOver;
+    public static boolean isGameOver;
     int gamePoints = 0;
     PointCounter pointCounter;
-    final int pointCounterMarginTop = 34;
-    final int pointCounterMarginRight = 200;
+    static final int pointCounterMarginTop = 34;
+    static final int pointCounterMarginRight = 200;
 
 
     public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        background = new MovingBackground();
+        background = new MovingBackground("backgrounds/game_bg.png");
         birdTexture = new Texture("birdTiles/bird0.png");
         bird = new Bird(200, 350, birdTexture);
         initTubes();
@@ -48,6 +48,10 @@ public class ScreenGame implements Screen {
 
     @Override
     public void render(float delta) {
+        if (isGameOver) {
+            myGdxGame.setScreen(myGdxGame.screenRestart);
+        }
+
         if (Gdx.input.justTouched()) {
             bird.onClick();
         }
@@ -80,6 +84,7 @@ public class ScreenGame implements Screen {
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
         pointCounter.draw(myGdxGame.batch,gamePoints);
         myGdxGame.batch.end();
+
     }
 
     @Override

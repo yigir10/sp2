@@ -7,12 +7,12 @@ import com.mygdx.game.MyGdxGame;
 public class MovingBackground {
     Texture texture;
     int texture1X, texture2X;
-    int speed = 2;
+    int speed = 1;
 
-    public MovingBackground() {
+    public MovingBackground(String pathToTexture) {
         texture1X = 0;
         texture2X = MyGdxGame.SCR_WIDTH;
-        texture = new Texture("game_bg.png");
+        texture = new Texture(pathToTexture);
     }
 
     public void move() {
