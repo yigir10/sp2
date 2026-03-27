@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setWindowedMode(MyGdxGame.SCR_WIDTH, MyGdxGame.SCR_HEIGHT);
-		config.setTitle("Sprint2Egor");
+		config.setTitle("sp2");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
 }

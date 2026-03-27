@@ -18,7 +18,7 @@ public class ScreenGame implements Screen {
     int tubeCount = 3;
     Tube[] tubes;
     public static boolean isGameOver;
-    int gamePoints = 0;
+    static int gamePoints = 0;
     PointCounter pointCounter;
     static final int pointCounterMarginTop = 34;
     static final int pointCounterMarginRight = 200;
@@ -28,7 +28,7 @@ public class ScreenGame implements Screen {
         this.myGdxGame = myGdxGame;
         background = new MovingBackground("backgrounds/game_bg.png");
         birdTexture = new Texture("birdTiles/bird0.png");
-        bird = new Bird(200, 350, birdTexture);
+        bird = new Bird(200, MyGdxGame.SCR_HEIGHT / 2, birdTexture);
         initTubes();
     }
 

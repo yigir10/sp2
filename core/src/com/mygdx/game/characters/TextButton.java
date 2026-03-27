@@ -16,8 +16,10 @@ public class TextButton {
 
     int x, y;
     int textX, textY;
-    int buttonWidth, buttonHeight;
-    int textWidth, textHeight;
+    public int buttonWidth;
+    public int buttonHeight;
+    int textWidth;
+    int textHeight;
 
     public TextButton(int x, int y, String text) {
         this.text = text;
@@ -38,6 +40,9 @@ public class TextButton {
 
         textX = x + (buttonWidth - textWidth) / 2;
         textY = y + (buttonHeight + textHeight) / 2;
+    }
+    public boolean isHit(int tx, int ty) {
+        return tx >= x && tx <= x + buttonWidth && ty >= y && ty <= y + buttonHeight;
     }
     public void draw(Batch batch) {
             batch.draw(texture, x, y, buttonWidth, buttonHeight);
