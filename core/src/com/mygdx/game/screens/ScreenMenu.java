@@ -9,20 +9,14 @@ import com.mygdx.game.characters.TextButton;
 import com.mygdx.game.components.MovingBackground;
 import com.mygdx.game.components.PointCounter;
 
-
-public class ScreenRestart implements Screen {
+public class ScreenMenu implements Screen {
     MyGdxGame myGdxGame;
     MovingBackground background;
     TextButton buttonRestart;
-    TextButton buttonHome;
-    PointCounter pointCounter;
-
-    public ScreenRestart(MyGdxGame myGdxGame) {
+    public ScreenMenu(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         buttonRestart = new TextButton(100, 400, "Restart");
-        buttonHome = new TextButton(100,200, "Home");
         background = new MovingBackground("backgrounds/restart_bg.png");
-        System.out.println(buttonRestart.buttonWidth + "\n" + buttonRestart.buttonHeight);
     }
     public boolean isClickedRestart() {
         if (Gdx.input.justTouched()) {
@@ -32,7 +26,7 @@ public class ScreenRestart implements Screen {
         }
         return false;
     }
-    public boolean isClickedHome() {
+    public boolean isClickedExit() {
         if (Gdx.input.justTouched()) {
             Vector3 touch = new Vector3().set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(touch);
@@ -43,8 +37,7 @@ public class ScreenRestart implements Screen {
 
     @Override
     public void show() {
-        ScreenGame.isGameOver = false;
-        pointCounter = new PointCounter(750, 530);
+
     }
 
     @Override
@@ -59,8 +52,6 @@ public class ScreenRestart implements Screen {
         myGdxGame.batch.begin();
         background.draw(myGdxGame.batch);
         buttonRestart.draw(myGdxGame.batch);
-        buttonHome.draw(myGdxGame.batch);
-        pointCounter.draw(myGdxGame.batch,ScreenGame.gamePoints);
         myGdxGame.batch.end();
     }
 
@@ -86,8 +77,6 @@ public class ScreenRestart implements Screen {
 
     @Override
     public void dispose() {
-        buttonRestart.dispose();
-        background.dispose();
-        buttonRestart.dispose();
+
     }
 }
