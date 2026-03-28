@@ -36,7 +36,7 @@ public class ScreenRestart implements Screen {
         if (Gdx.input.justTouched()) {
             Vector3 touch = new Vector3().set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(touch);
-            return buttonRestart.isHit((int) touch.x, (int) touch.y);
+            return buttonHome.isHit((int) touch.x, (int) touch.y);
         }
         return false;
     }
@@ -52,6 +52,8 @@ public class ScreenRestart implements Screen {
         if (isClickedRestart()) {
             myGdxGame.setScreen(new ScreenGame(myGdxGame));
             ScreenGame.gamePoints = 0;
+        } else if (isClickedHome()) {
+            myGdxGame.setScreen(new ScreenMenu(myGdxGame));
         }
         ScreenUtils.clear(0.1f, 0.1f, 0.5f, 1);
         myGdxGame.camera.update();
