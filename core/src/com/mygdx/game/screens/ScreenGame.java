@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
@@ -22,6 +23,7 @@ public class ScreenGame implements Screen {
     PointCounter pointCounter;
     static final int pointCounterMarginTop = 34;
     static final int pointCounterMarginRight = 200;
+    Sound soundTap;
 
 
     public ScreenGame(MyGdxGame myGdxGame) {
@@ -29,6 +31,7 @@ public class ScreenGame implements Screen {
         background = new MovingBackground("backgrounds/game_bg.png");
         birdTexture = new Texture("birdTiles/bird0.png");
         bird = new Bird(200, MyGdxGame.SCR_HEIGHT / 2, birdTexture);
+        soundTap = Gdx.audio.newSound(Gdx.files.internal("Sounds/Fluff.mp3"));
         initTubes();
     }
 
@@ -54,6 +57,7 @@ public class ScreenGame implements Screen {
 
         if (Gdx.input.justTouched()) {
             bird.onClick();
+            soundTap.play(0.1f);
         }
 
         bird.fly();
@@ -112,6 +116,6 @@ public class ScreenGame implements Screen {
         bird.dispose();
         birdTexture.dispose();
         background.dispose();
-
+        soundTap.dispose();
     }
 }

@@ -52,7 +52,7 @@ public class Tube {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
     }
-    void dispose() {
+    public void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
     }

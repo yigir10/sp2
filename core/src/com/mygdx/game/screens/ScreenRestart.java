@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
@@ -16,9 +17,12 @@ public class ScreenRestart implements Screen {
     TextButton buttonRestart;
     TextButton buttonHome;
     PointCounter pointCounter;
+    Sound soundDead = Gdx.audio.newSound(Gdx.files.internal("Sounds/Dead.mp3"));
+    Sound soundButton;
 
     public ScreenRestart(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
+        soundButton = Gdx.audio.newSound(Gdx.files.internal("Sounds/Button.mp3"));
         buttonRestart = new TextButton(100, 400, "Restart");
         buttonHome = new TextButton(100,200, "Home");
         background = new MovingBackground("backgrounds/restart_bg.png");
@@ -43,6 +47,7 @@ public class ScreenRestart implements Screen {
 
     @Override
     public void show() {
+        soundDead.play(0.2f);
         ScreenGame.isGameOver = false;
         pointCounter = new PointCounter(750, 530);
     }
@@ -50,9 +55,11 @@ public class ScreenRestart implements Screen {
     @Override
     public void render(float delta) {
         if (isClickedRestart()) {
+            soundButton.play(0.1f);
             myGdxGame.setScreen(new ScreenGame(myGdxGame));
             ScreenGame.gamePoints = 0;
         } else if (isClickedHome()) {
+            soundButton.play(0.1f);
             myGdxGame.setScreen(new ScreenMenu(myGdxGame));
         }
         ScreenUtils.clear(0.1f, 0.1f, 0.5f, 1);
@@ -90,6 +97,8 @@ public class ScreenRestart implements Screen {
     public void dispose() {
         buttonRestart.dispose();
         background.dispose();
-        buttonRestart.dispose();
+        soundButton.dispose();
+        soundDead.dispose();
+        buttonHome.dispose();
     }
 }
